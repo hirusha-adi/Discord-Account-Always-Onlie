@@ -1,6 +1,7 @@
 
 import os
 import json
+from time import sleep
 import platform
 from threading import Thread
 
@@ -92,6 +93,15 @@ if settings.web_server_start:
         t = Thread(target=_start_web_server)
         t.start()
 
+def _show_uptime():
+    time = 0
+    while True:
+        sleep(5)
+        time += 5
+        print(f"[*] Uptime: {time} seconds", end='\r')
+
+uptime = Thread(target=_show_uptime)
+
 client = commands.Bot(settings.prefix, self_bot=True, intents=discord.Intents.default())
 
 @client.event
@@ -100,24 +110,29 @@ async def on_ready():
     print(f'[+] Python version: {platform.python_version()}')
     print(f"[+] Logged in as {client.user.name} | {client.user} | {client.user.id}")
     print("[+] Account is online!")
-    print("\n[~] Changing account activity")
     
     if settings.presence_change:
+        print("\n[~] Changing account activity")
         await client.change_presence(
             activity=discord.Streaming(
-                name="Hackor Master", 
-                url="https://youtube.com"
+                name=settings.presence_value 
                 )
             )
-        print("[+] Changed account activity!")
+        print(f"[+] Changed account activity to\n\t'Streaming: {settings.presence_value}'")
     
     if settings.voice_connect:
         vc = client.get_channel(settings.voice_id)
         await vc.connect()
-        print("[+] Connected to Voice Channel")
+        print(f"[+] Connected to Voice Channel of ID {settings.voice_id}")
+    
+    print("\nMade by @hirusha-adi ...\n\n")
+    
+    uptime.start()
+    
 
 if __name__ == "__main__":
     
     if settings.web_server_start:
         start_web_server()
     client.run(settings.token, bot=False)
+    
