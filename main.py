@@ -69,6 +69,10 @@ class Settings:
     @property
     def web_server_content(self) -> str:
         return str(self.data['web_server']['content'])
+
+    @property
+    def web_server_port(self) -> int:
+        return int(self.data['web_server']['port'])
     
 
 
@@ -82,7 +86,7 @@ if settings.web_server_start:
         return f"{settings.web_server_content}"
 
     def _start_web_server():
-        app.run(host='0.0.0.0', port=8080)
+        app.run(host='0.0.0.0', port=settings.web_server_port)
         
     def start_web_server():
         t = Thread(target=_start_web_server)
