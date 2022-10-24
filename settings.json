@@ -1,0 +1,19 @@
+{
+    "bot": {
+        "token": "",
+        "prefix": ">>",
+        "presence": {
+            "change": true,
+            "value": ""
+        },
+        "voice": {
+            "connect": false,
+            "id": 871428065652269063
+        }
+    },
+
+    "web_server": {
+        "start": true, 
+        "content": "Hello World"
+    }
+}
