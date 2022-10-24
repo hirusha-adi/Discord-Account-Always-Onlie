@@ -1,6 +1,5 @@
 {
     "bot": {
-        "token": "",
         "prefix": ">>",
         "presence": {
             "change": true,

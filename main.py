@@ -41,7 +41,7 @@ class Settings:
             
     @property
     def token(self) -> str:
-        return str(self.data['bot']['token'])
+        return str(os.environ['TOKEN'])
     
     @property
     def prefix(self) -> str:
